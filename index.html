@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client P&L Portal</title>
+  <title>PERFORMANCE SUMMARY</title>
 
   <style>
     body {
@@ -16,11 +16,11 @@
       margin: 0;
     }
     .container {
-      background: white;
-      width: 90%;
+      background: grey;
+      width: 100%;
       max-width: 1100px;
-      padding: 25px;
-      border-radius: 14px;
+      padding: 50px;
+      border-radius: 18px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
     h1 {
@@ -38,11 +38,20 @@
 <body>
 
   <div class="container">
-    <h1>Real-Time Profit & Loss Workbook</h1>
+    <h1>PERFORMANCE SUMMARY</h1>
 
-    <!-- Your Excel Embed -->
-<iframe width="402" height="346" frameborder="0" scrolling="no" src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+    <!-- Excel Embed -->
+    <iframe id="excelFrame"
+      src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
+      frameborder="0" scrolling="no"></iframe>
   </div>
+
+  <script>
+    const iframe = document.getElementById('excelFrame');
+    setInterval(() => {
+      iframe.src = iframe.src; // reload iframe every 1800 seconds
+    }, 1800000); // 1800000 ms = 1800 seconds
+  </script>
 
 </body>
 </html>
