@@ -146,28 +146,39 @@
     }
   }
 
-  const iframe = document.getElementById("excelFrame");
-  const overlay = document.getElementById("loadingOverlay");
-  
-  function refreshIframe() {
-      overlay.style.display = "flex";
-      iframe.src = iframe.src;
-  }
+const iframe = document.getElementById("excelFrame");
+const overlay = document.getElementById("loadingOverlay");
 
-  // Refresh every 15 minutes (900,000 ms)
-  setInterval(() => {
+function refreshIframe() {
     overlay.style.display = "flex";
     iframe.src = iframe.src;
-  }, 900000);
+}
 
-  // Hide loading animation when iframe finishes loading
-  iframe.onload = () => {
+// Auto-refresh every 15 minutes
+setInterval(refreshIframe, 900000);
+
+// Hide loading animation when iframe finishes loading
+iframe.onload = () => {
     overlay.style.display = "none";
-  };
+};
+
+const PASSWORD = "GalaxyPlus123";
+
+function checkPassword() {
+    const userInput = document.getElementById("passwordInput").value;
+    if (userInput === PASSWORD) {
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        document.getElementById("errorMsg").innerText = "Incorrect password.";
+    }
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
