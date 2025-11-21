@@ -26,31 +26,37 @@
     h1 {
       text-align: center;
       margin-bottom: 20px;
+      color: white;
     }
     iframe {
       width: 100%;
       height: 800px;
       border: 1px solid #ddd;
       border-radius: 10px;
+      background: white;
     }
   </style>
 </head>
-<body>
 
+<body>
   <div class="container">
     <h1>PERFORMANCE SUMMARY</h1>
 
-    <!-- Excel Embed -->
-<iframe width="402" height="346" frameborder="0" scrolling="no" src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+    <!-- PUBLIC EMBED (NO LOGIN REQUIRED) -->
+    <iframe
+      id="excelFrame"
+      src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={0EC21AD2-7AEA-4661-8365-512C42C49CFB}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
   </div>
 
   <script>
     const iframe = document.getElementById('excelFrame');
     setInterval(() => {
-      iframe.src = iframe.src; // reload iframe every 1800 seconds
-    }, 1800000); // 1800000 ms = 1800 seconds
+      iframe.src = iframe.src;   // Auto-refresh every 1800 seconds
+    }, 1800000);
   </script>
 
 </body>
 </html>
-
