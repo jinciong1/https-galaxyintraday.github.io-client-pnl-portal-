@@ -56,16 +56,15 @@
     padding: 50px;
     border-radius: 18px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    position: relative;
   }
 
-  /* Title */
   h1 {
     text-align: center;
     margin-bottom: 20px;
     color: white;
   }
 
-  /* Iframe */
   iframe {
     width: 100%;
     height: 800px;
@@ -74,7 +73,7 @@
     background: white;
   }
 
-  /* Loading Overlay */
+  /* Loading spinner overlay */
   #loadingOverlay {
     display: none;
     position: absolute;
@@ -122,14 +121,14 @@
 
   <iframe
       id="excelFrame"
-      src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={0EC21AD2-7AEA-4661-8365-512C42C49CFB}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
+      src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
       frameborder="0"
       scrolling="no">
   </iframe>
 </div>
 
 <script>
-  const PASSWORD = "GalaxyPlus123";   // ← CHANGE THIS PASSWORD
+  const PASSWORD = "GalaxyPlus123";   // ← CHANGE THIS
 
   function checkPassword() {
     const userInput = document.getElementById("passwordInput").value;
@@ -145,7 +144,7 @@
   const iframe = document.getElementById("excelFrame");
   const overlay = document.getElementById("loadingOverlay");
 
-  // Refresh every 15 minutes (900000 ms)
+  // Refresh every 15 minutes (900,000 ms)
   setInterval(() => {
     overlay.style.display = "flex";
     iframe.src = iframe.src;
