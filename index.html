@@ -1,62 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PERFORMANCE SUMMARY</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PERFORMANCE SUMMARY</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: grey;
-      width: 100%;
-      max-width: 1100px;
-      padding: 50px;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: white;
-    }
-    iframe {
-      width: 100%;
-      height: 800px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      background: white;
-    }
-  </style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* Password Screen */
+  #passwordScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    z-index: 9999;
+  }
+  #passwordScreen input {
+    padding: 12px 18px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  #passwordScreen button {
+    margin-top: 15px;
+    padding: 10px 18px;
+    font-size: 18px;
+    background: #4caf50;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* Container */
+  .container {
+    display: none;
+    background: grey;
+    width: 100%;
+    max-width: 1100px;
+    padding: 50px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  /* Title */
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  /* Iframe */
+  iframe {
+    width: 100%;
+    height: 800px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: white;
+  }
+
+  /* Loading Overlay */
+  #loadingOverlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    border-radius: 18px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spinner {
+    border: 8px solid #ddd;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 1.1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>PERFORMANCE SUMMARY</h1>
 
-    <!-- PUBLIC EMBED (NO LOGIN REQUIRED) -->
-    <iframe
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+  <h2>Enter Password</h2>
+  <input type="password" id="passwordInput" placeholder="Password" />
+  <button onclick="checkPassword()">Submit</button>
+  <p id="errorMsg" style="color:red; margin-top:10px;"></p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container" id="mainContent">
+  <h1>PERFORMANCE SUMMARY</h1>
+
+  <div id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <iframe
       id="excelFrame"
       src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={0EC21AD2-7AEA-4661-8365-512C42C49CFB}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
       frameborder="0"
       scrolling="no">
-    </iframe>
-  </div>
+  </iframe>
+</div>
 
-  <script>
-    const iframe = document.getElementById('excelFrame');
-    setInterval(() => {
-      iframe.src = iframe.src;   // Auto-refresh every 1800 seconds
-    }, 1800000);
-  </script>
+<script>
+  const PASSWORD = "GalaxyPlus123";   // ← CHANGE THIS PASSWORD
+
+  function checkPassword() {
+    const userInput = document.getElementById("passwordInput").value;
+
+    if (userInput === PASSWORD) {
+      document.getElementById("passwordScreen").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    } else {
+      document.getElementById("errorMsg").innerText = "Incorrect password.";
+    }
+  }
+
+  const iframe = document.getElementById("excelFrame");
+  const overlay = document.getElementById("loadingOverlay");
+
+  // Refresh every 15 minutes (900000 ms)
+  setInterval(() => {
+    overlay.style.display = "flex";
+    iframe.src = iframe.src;
+  }, 900000);
+
+  // Hide loading animation when iframe finishes loading
+  iframe.onload = () => {
+    overlay.style.display = "none";
+  };
+</script>
 
 </body>
 </html>
