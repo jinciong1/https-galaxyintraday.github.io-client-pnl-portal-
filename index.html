@@ -149,12 +149,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     window.checkPassword = checkPassword; // make it callable from button
-  // Allow pressing Enter to submit password
-  document.getElementById("passwordInput").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-          checkPassword();
-      }
-  });
+// Allow pressing Enter to submit password
+document.getElementById("passwordInput").addEventListener("keyup", function(e) {
+    if (e.key === "Enter" || e.keyCode === 13) {
+        checkPassword();
+    }
+});
+
 
     // Refresh iframe
     function refreshIframe() {
@@ -175,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
 
 
