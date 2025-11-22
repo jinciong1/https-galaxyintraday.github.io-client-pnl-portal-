@@ -170,13 +170,22 @@ document.getElementById("passwordInput").addEventListener("keyup", function(e) {
     // Hide overlay when iframe finishes loading
     iframe.onload = function() {
         overlay.style.display = "none";
+  resizeIframeToContent(); // resize after load
     };
+
+
+    // Resize iframe to only show used data
+    function resizeIframeToContent() {
+        const rowHeight = 25;    // approximate row height in pixels
+        const numRows = 30;      // estimate rows with data
+        const headerHeight = 50; // optional extra space
+        iframe.style.height = (rowHeight * numRows + headerHeight) + "px";
+    }
 });
 </script>
 
 </body>
 </html>
-
 
 
 
