@@ -1,8 +1,8 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PERFORMANCE</title>
 
 <style>
@@ -10,7 +10,9 @@
     font-family: roboto, sans-serif;
     background: #f4f6f8;
     margin: 0;
-    display: block; /* changed from flex to prevent iPhone iframe collapse */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
   }
 
@@ -52,7 +54,9 @@
     width: 100%;
     max-width: 1100px;
     padding: 25px;
-    margin: 0 auto;
+    border-radius: 0px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    position: relative;
   }
 
   h1 {
@@ -61,22 +65,14 @@
     color: black;
   }
 
-  /* ----------- NEW RESPONSIVE IFRAME WRAPPER ----------- */
-  .iframe-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
   iframe {
-    width: 100%;
-    height: 1200px;
+    width: 125%;
+    height: 1066px;
     border: 1px solid #ddd;
+    border-radius: 0px;
     background: grey;
-
-    /* keep your zoom but make it iPhone safe */
-    transform: scale(0.80);
-    transform-origin: top left;
+    transform: scale(0.80); /* zoom out */
+    transform-origin: 0 0; /* top-left corner as anchor */
   }
 
   /* Loading spinner overlay */
@@ -86,6 +82,7 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.45);
+    border-radius: 18px;
     justify-content: center;
     align-items: center;
   }
@@ -124,19 +121,17 @@
     <div class="spinner"></div>
   </div>
 
-  <div style="text-align:center; margin-bottom:20px;">
+  <!-- Refresh button -->
+  <div style="text-align:center; margin-bottom:20px; z-index:10;">
     <button onclick="refreshIframe()" style="padding:5px 10px; font-size:10px; cursor:pointer;">Refresh</button>
   </div>
-
-  <!-- NEW WRAPPER -->
-  <div class="iframe-wrapper">
-    <iframe
+  
+  <iframe
       id="excelFrame"
       src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
       frameborder="0"
       scrolling="no">
-    </iframe>
-  </div>
+  </iframe>
 </div>
 
 <script>
@@ -155,28 +150,76 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("errorMsg").innerText = "Incorrect password.";
         }
     }
-    window.checkPassword = checkPassword;
+    window.checkPassword = checkPassword; // make it callable from button
+// Allow pressing Enter to submit password
+document.getElementById("passwordInput").addEventListener("keyup", function(e) {
+    if (e.key === "Enter" || e.keyCode === 13) {
+        checkPassword();
+    }
+});
 
-    document.getElementById("passwordInput").addEventListener("keyup", function(e) {
-        if (e.key === "Enter") checkPassword();
-    });
 
     // Refresh iframe
     function refreshIframe() {
         overlay.style.display = "flex";
         iframe.src = iframe.src;
     }
-    window.refreshIframe = refreshIframe;
+    window.refreshIframe = refreshIframe; // make callable from button
 
-    // Auto refresh
+    // Auto-refresh every 15 minutes
     setInterval(refreshIframe, 900000);
 
-    // Hide spinner when loaded
+    // Hide overlay when iframe finishes loading
     iframe.onload = function() {
         overlay.style.display = "none";
+  resizeIframeToContent(); // resize after load
     };
 });
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
