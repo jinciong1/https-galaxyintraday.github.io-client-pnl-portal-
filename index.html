@@ -104,7 +104,14 @@
 </head>
 
 <body>
+<!-- Password screen stays outside zoom -->
+<div id="passwordScreen">...</div>
+
+<!-- Apply zoom only to main content -->
 <div style="transform: scale(0.9); transform-origin: top left; width: 111%;">
+  <div class="container" id="mainContent">...</div>
+</div>
+</body>
 
 
 <!-- PASSWORD SCREEN -->
@@ -185,6 +192,7 @@ document.getElementById("passwordInput").addEventListener("keyup", function(e) {
 </body>
 
 </html>
+
 
 
 
