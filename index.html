@@ -14,6 +14,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    zoom: 0.90; /* PAGE ZOOM 90% */
   }
 
   /* Password Screen */
@@ -29,6 +30,7 @@
     color: white;
     z-index: 9999;
   }
+
   #passwordScreen input {
     padding: 12px 18px;
     border-radius: 6px;
@@ -36,6 +38,7 @@
     margin-top: 10px;
     font-size: 18px;
   }
+
   #passwordScreen button {
     margin-top: 15px;
     padding: 7px 12px;
@@ -71,11 +74,11 @@
     border: 1px solid #ddd;
     border-radius: 0px;
     background: grey;
-    transform: scale(0.80); /* zoom out */
-    transform-origin: 0 0; /* top-left corner as anchor */
+    transform: scale(0.80);
+    transform-origin: 0 0;
   }
 
-  /* Loading spinner overlay */
+  /* Loading spinner */
   #loadingOverlay {
     display: none;
     position: absolute;
@@ -103,9 +106,7 @@
 </style>
 </head>
 
-</div>
-</body>
-
+<body>
 
 <!-- PASSWORD SCREEN -->
 <div id="passwordScreen">
@@ -127,15 +128,13 @@
   <div style="text-align:center; margin-bottom:20px; z-index:10;">
     <button onclick="refreshIframe()" style="padding:5px 10px; font-size:10px; cursor:pointer;">Refresh</button>
   </div>
-  
-<iframe
-    id="excelFrame"
-    src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
-    frameborder="0"
-    scrolling="no"
 
->
-</iframe>
+  <iframe
+      id="excelFrame"
+      src="https://galaxyplusmap-my.sharepoint.com/personal/jinciong_galaxyplus_io/_layouts/15/Doc.aspx?sourcedoc={72bf7abf-caf6-4888-8ba1-45e79d990627}&action=embedview&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"
+      frameborder="0"
+      scrolling="no">
+  </iframe>
 </div>
 
 <script>
@@ -144,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const iframe = document.getElementById("excelFrame");
     const overlay = document.getElementById("loadingOverlay");
 
-    // Password check
     function checkPassword() {
         const userInput = document.getElementById("passwordInput").value;
         if (userInput === PASSWORD) {
@@ -154,88 +152,25 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("errorMsg").innerText = "Incorrect password.";
         }
     }
-    window.checkPassword = checkPassword; // make it callable from button
-// Allow pressing Enter to submit password
-document.getElementById("passwordInput").addEventListener("keyup", function(e) {
-    if (e.key === "Enter" || e.keyCode === 13) {
-        checkPassword();
-    }
-});
+    window.checkPassword = checkPassword;
 
+    document.getElementById("passwordInput").addEventListener("keyup", function(e) {
+        if (e.key === "Enter") checkPassword();
+    });
 
-    // Refresh iframe
     function refreshIframe() {
         overlay.style.display = "flex";
         iframe.src = iframe.src;
     }
-    window.refreshIframe = refreshIframe; // make callable from button
+    window.refreshIframe = refreshIframe;
 
-    // Auto-refresh every 15 minutes
-    setInterval(refreshIframe, 900000);
+    setInterval(refreshIframe, 900000); // 15 min auto-refresh
 
-    // Hide overlay when iframe finishes loading
     iframe.onload = function() {
         overlay.style.display = "none";
-  resizeIframeToContent(); // resize after load
     };
 });
 </script>
 
-</div>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
